@@ -10,4 +10,13 @@ stage('package building'){
   sh "${mvnhome}/bin/mvn clean package" 
 
 }
+  
+  stage('slack notification')
+  {
+    slackSend baseUrl: 'https://hooks.slack.com/services/', 
+      channel: 'devops', 
+      color: 'good',
+      message: 'welcome to jenkins monitoring',
+      tokenCredentialId: 'slack-demo'
+  }
 }
