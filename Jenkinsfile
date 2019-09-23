@@ -11,6 +11,14 @@ stage('package building'){
 
 }
   
+  stage('tomcat deploy')
+  {
+    
+    sshagent(['tomcat-demo']) {
+    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/jenkinsfile-git and maven/target/myweb-0.0.7-SNAPSHOT.war centos@172.31.34.197:/opt/apache-tomcat-8.5.46/webapps'
+}
+  }
+  
   stage('slack notification')
   {
     slackSend baseUrl: 'https://hooks.slack.com/services/', 
